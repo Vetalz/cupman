@@ -17,6 +17,21 @@ class Index(ListView):
         return Product.objects.filter(popular=True, qty__gt=0)
 
 
+class CoffeeCatalog(ListView):
+    model = Product
+    template_name = 'shop/catalog.html'
+    context_object_name = 'coffee'
+
+    def get_queryset(self):
+        return Product.objects.filter(category=1)
+
+    def get_context_data(self, **kwargs):
+        context = super(CoffeeCatalog, self).get_context_data(**kwargs)
+        context['title'] = 'Свежеобжаренный кофе'
+        context['subtitle'] = 'Лучшие истории рассказывают за чашечкой кофе'
+        return context
+
+
 class OrderView(FormView):
     form_class = OrderForm
     template_name = 'shop/cart.html'

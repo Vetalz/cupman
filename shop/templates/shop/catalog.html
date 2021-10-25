@@ -1,4 +1,4 @@
-{% extends 'coffee/base.html' %}
+{% extends 'shop/base.html' %}
 {% load static %}
 {% block title %}{{ title }}{% endblock %}
 
@@ -31,61 +31,68 @@
                     <a class="nav-link" href="#">Не кофе</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accessory_catalog' %}">Аксессуары</a>
+                    <a class="nav-link" href="#">Аксессуары</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'subscribe' %}">Подписка</a>
+                    <a class="nav-link" href="#">Подписка</a>
                 </li>
             </ul>
         </div>
         <div class="row justify-content-around">
             {% for item in coffee %}
-            <div class="card  mt-3 text-center ms-2 card-custom">
-                <a href="{{ item.get_absolute_url }}">
-                    <img src="{{ item.images.first.image.url }}" class="card-img-top" alt="{{ item.name }}">
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title text-center">{{ item.name }}</h5>
-                    <p>{{ item.taste|truncatechars:60 }}</p>
-                    <div class="d-flex justify-content-between card-option mb-2">
-                        <label for="weight" class="text-start">Вес:</label>
-                        <select class="form-select" aria-label="weight" id="weight">
-                            {% for i in item.packing.all %}
-                                <option value="{{ i.name }}">{{ i.name }} г.</option>
-                           {% endfor%}
-                        </select>
-                       </div>
-                       <div class="d-flex justify-content-between card-option mb-2">
-                           <label for="roasting" class="text-start">Обжарка:</label>
-                           <select class="form-select" aria-label="roasting" id="roasting">
-                               {% for i in item.roasting.all %}
-                                    <option value="{{ i.name }}">{{ i.name }}</option>
-                               {% endfor%}
+           <div class="card  mt-3 text-center ms-2 card-custom" style="width: 18rem;">
+               <a href="{{ item.get_absolute_url }}" id="{{ item.id }}_url">
+                   <img src="{{ item.main_image.url }}" class="card-img-top" id="{{ item.id }}_image" alt="{{ item.name }}">
+               </a>
+               <div class="card-body">
+                   <h5 class="card-title text-center" id="{{ item.id }}_name">{{ item.name }}</h5>
+                   <p>{{ item.description|truncatechars:50 }}</p>
+                   <div class="d-flex justify-content-between card-option mb-2">
+                       <label for="{{ item.id }}_packing" class="text-start">Вес:</label>
+                       <select class="form-select packing" aria-label="packing" id="{{ item.id }}_packing">
+                           {% for key, value in item.options.packing.items %}
+                                <option value="{{ key }}" >{{ key }} г</option>
+                           {% endfor %}
+                       </select>
+                   </div>
+                   <div class="d-flex justify-content-between card-option mb-2">
+                       <label for="{{ item.id }}_roasting" class="text-start">Обжарка:</label>
+                       <select class="form-select roasting" aria-label="roasting" id="{{ item.id }}_roasting">
+                           {% for key, value in item.options.roasting.items %}
+                                {% if value.qty %}
+                                    <option value="{{ key }}" id="{{ i.id }}">{{ key }}</option>
+                                {% endif %}
+                           {% endfor %}
+                       </select>
+                   </div>
+                   <div class="d-flex justify-content-between card-option mb-4">
+                       <label class="text-start">Помол:</label>
+                       {% for key, value in item.options.roasting.items %}
+                            <select class="form-select {{ item.id }}_grind hidden" aria-label="grind" name="{{ key }}">
+                               {% for i in value.grind %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                               {% endfor %}
                            </select>
+                       {% endfor %}
+                   </div>
+                   <div class="d-flex justify-content-center amount mb-4">
+                       <button class="btn btn-primary" value="-" onclick="qty_down('{{ item.id }}_qty')">-</button>
+                       <input type="number" class="form-control ms-3" min="1" max="99" value="1" id="{{ item.id }}_qty">
+                       <button class="btn btn-primary" value="+" onclick="qty_up('{{ item.id }}_qty')">+</button>
+                   </div>
+                   <div class="d-flex justify-content-between mb-2">
+                       <div class="price">
+                           {% for key, value in item.options.packing.items %}
+                                <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">{{ value }}</span>
+                           {% endfor %}
+                           <span>грн</span>
                        </div>
-                       <div class="d-flex justify-content-between card-option mb-4">
-                           <label for="grind" class="text-start">Помол:</label>
-                           <select class="form-select" aria-label="grind" id="grind">
-                               {% for i in item.grind.all %}
-                                    <option value="{{ i.name }}">{{ i.name }}</option>
-                               {% endfor%}
-                           </select>
-                       </div>
-                        <div class="d-flex justify-content-center amount mb-4">
-                            <button class="btn btn-primary">-</button>
-                            <input type="number" class="form-control ms-3" min="1" max="{{ item.stock }}" value="1">
-                            <button class="btn btn-primary">+</button>
-                        </div>
-                       <div class="d-flex justify-content-between mb-2">
-                           <div class="price">
-                               <span class="fw-bold">{{ item.price }}</span>
-                               <span>грн</span>
-                           </div>
-                           <a href="#" class="btn btn-primary px-4 py-2">Купить</a>
-                       </div>
+                       <button class="add_cart btn btn-primary px-4 py-2" id="{{ item.id }}_addcart"
+                               onClick="add_cart(this.id, {{ item.category.pk }})">Купить</button>
                    </div>
                </div>
-            {% endfor %}
+           </div>
+           {% endfor %}
         </div>
         <div class="row mt-5">
             <h3>Как выбрать кофе арабика в зернах</h3>

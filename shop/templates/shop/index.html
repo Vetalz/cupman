@@ -14,7 +14,7 @@
     </div>
    <div class="row">
        <div class="text-center">
-           <a href="#" class="btn btn-primary px-5 py-3 mb-5">Кофе домой</a>
+           <a href="{% url 'coffee_catalog' %}" class="btn btn-primary px-5 py-3 mb-5">Кофе домой</a>
            <a href="#" class="btn btn-primary btn-custom px-5 py-3 mb-5">Кофе для бизнеса</a>
        </div>
    </div>
@@ -67,7 +67,7 @@
                        <label for="{{ item.id }}_packing" class="text-start">Вес:</label>
                        <select class="form-select packing" aria-label="packing" id="{{ item.id }}_packing">
                            {% for key, value in item.options.packing.items %}
-                                <option value="{{ key }}" >{{ key }} г.</option>
+                                <option value="{{ key }}" >{{ key }} г</option>
                            {% endfor %}
                        </select>
                    </div>
@@ -113,7 +113,7 @@
    </div>
    <div class="row">
        <div class="col-md-12 text-center mt-4">
-           <a href="#" class="btn btn-primary px-5 py-3">Посмотреть все товары</a>
+           <a href="{% url 'coffee_catalog' %}" class="btn btn-primary px-5 py-3">Посмотреть все товары</a>
        </div>
    </div>
 </section>
