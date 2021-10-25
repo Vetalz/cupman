@@ -1,0 +1,96 @@
+{% extends 'coffee/base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row line-bg"></div>
+</div>
+<div class="container-fluid bg">
+    <div class="container">
+        <div class="row breadcrumbs-custom">
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Аксессуары</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <h2>{{ title }}</h2>
+        </div>
+        <div class="row">
+            <p class="quote">{{ subtitle }}</p>
+        </div>
+        <div class="row mt-5">
+            <ul class="nav justify-content-center nav-custom">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'coffee_catalog' %}">Кофе</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Не кофе</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'accessory_catalog' %}">Аксессуары</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'subscribe' %}">Подписка</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row justify-content-around">
+            {% for item in accessory %}
+            <div class="card  mt-3 text-center ms-2 card-custom">
+                <a href="#">
+                    <img src="{{ item.images.first.image.url }}" class="card-img-top" alt="{{ item.name }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ item.name|truncatechars:25 }}</h5>
+                    <div class="d-flex justify-content-center amount mb-4">
+                       <button class="btn btn-primary">-</button>
+                       <input type="number" class="form-control ms-3" value="1" min="1"  max="{{ item.stock }}">
+                       <button class="btn btn-primary">+</button>
+                   </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="price">
+                            <span class="fw-bold">{{ item.price }}</span>
+                            <span>грн</span>
+                        </div>
+                        <a href="#" class="btn btn-primary px-4 py-2">Купить</a>
+                    </div>
+               </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row mt-5">
+            <h3>Как выбрать кофе арабика в зернах</h3>
+            <p>Основные сорта арабики определяются в зависимости от региона произрастания.
+                Также имеет значение способ сбора и обработки зерен.</p>
+            <ul class="coffee-text">
+                <li><span class="fw-bold">Желтый бурбон</span> — один самых необычных сортов. Зерна покрыты тонкой оболочкой и высушиваются прямо
+                    на ветке, что придает напитку богатый вкус без малейшей кислинки.</li>
+                <li><span class="fw-bold">Бурунди</span> — кофе с ярким ароматом и кислинкой.</li>
+                <li><span class="fw-bold">Кения</span> — произрастает в высокогорьях Килиманджаро и считается премиальным сортом.
+                    У этого кофе в зернах восхитительный цитрусово-ягодный вкус и легкое винное послевкусие.</li>
+                <li><span class="fw-bold">Бразилия Сантос</span> — этот сорт стал эталоном хорошего напитка. Ведь сладковатый аромат, едва
+                    уловимая кислинка и шоколадное послевкусие — именно то, что большинство людей ценят в кофе.
+                    Бразилия Сантос делится еще на 8 подвидов: некоторые сорта придают смеси больше крепости.</li>
+                <li><span class="fw-bold">Бали</span> — выращенный на одноименном острове сорт очень высокого качества и имеет специфический аромат.</li>
+                <li><span class="fw-bold">Эфиопия Йоргачеф</span> — самый ароматный сорт. У него очень деликатный вкус с легкой кислинкой и винным
+                    послевкусием.</li>
+                <li><span class="fw-bold">Эфиопия Сидамо</span> — фруктовые оттенки аромата, нотки бергамота и ванили, сладковатый вкус и
+                    едва заметная кислинка — основные черты этого мягкого сорта кофе.</li>
+                <li><span class="fw-bold">Перу</span> — органический сорт, произрастает в высокогорьях Анд. Основные признаки:
+                    легкий аромат и вкус, нежные фруктовые нотки.</li>
+                <li><span class="fw-bold">Замбия</span> — интересный вкус и аромат напитку придают нотки апельсина, карамели и трав.</li>
+                <li><span class="fw-bold">Никарагуа</span> — сорт с богатым сливочно-ореховым вкусом и нотками шоколада.</li>
+                <li><span class="fw-bold">Индия Мансунд Малабар</span> — лучший индийский кофе с ярким ароматом, сладким вкусом и легкой
+                    горчинкой.</li>
+                <li><span class="fw-bold">Коста Рика</span> — кофеманы описывают вкус напитка, как яркий и огненный. В нем чувствуются винные нотки,
+                    специи и кислинка.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

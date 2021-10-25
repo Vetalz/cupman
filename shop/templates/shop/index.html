@@ -1,0 +1,263 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<header class="container-fluid main_screen">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="text-center title">
+                <h1>Кофе свежей обжарки</h1>
+                <h3>Мы используем лучшие сорта кофе<br> из стран Южной Америки и Африки</h3>
+            </div>
+        </div>
+    </div>
+   <div class="row">
+       <div class="text-center">
+           <a href="#" class="btn btn-primary px-5 py-3 mb-5">Кофе домой</a>
+           <a href="#" class="btn btn-primary btn-custom px-5 py-3 mb-5">Кофе для бизнеса</a>
+       </div>
+   </div>
+</header>
+<div class="container-fluid bg">
+   <section class="container mt-5 quality">
+   <div class="row mb-3">
+       <div class="col-md-12 text-center">
+           <h2>Гарантия качества</h2>
+       </div>
+   </div>
+   <div class="row justify-content-center">
+       <div class="col-md-4 text-center">
+           <i class="flaticon-coffee-beans"></i>
+           <h4>Скорость</h4>
+           <p>Мы обжариваем кофе по вторникам и пятницам, поэтому от поступления заказа до его изготовления
+           и отправки проходит менее 24 часов</p>
+       </div>
+       <div class="col-md-4 text-center">
+           <i class="flaticon-coffee-cup"></i>
+           <h4>Свежесть</h4>
+           <p>Мы не храним кофе на складе готовой продукции, каждый заказ отправляется
+               заказчику сразу после обжарки</p>
+       </div>
+       <div class="col-md-4 text-center">
+           <i class="flaticon-coffee-pack"></i>
+           <h4>Качество</h4>
+           <p>Мы работаем с лучшими фермерами в кофейной индустрии в странах Южной Америки и Африки</p>
+       </div>
+   </div>
+</section>
+   <section class="container popular_product mt-5">
+   <div class="row mb-3">
+       <div class="col-md-12 text-center">
+           <h2>Популярное</h2>
+
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-12 slick-slider">
+           {% for item in coffee %}
+           <div class="card  mt-3 text-center ms-2" style="width: 18rem;">
+               <a href="{{ item.get_absolute_url }}" id="{{ item.id }}_url">
+                   <img src="{{ item.main_image.url }}" class="card-img-top" id="{{ item.id }}_image" alt="{{ item.name }}">
+               </a>
+               <div class="card-body">
+                   <h5 class="card-title text-center" id="{{ item.id }}_name">{{ item.name }}</h5>
+                   <p>{{ item.description|truncatechars:60 }}</p>
+                   <div class="d-flex justify-content-between card-option mb-2">
+                       <label for="{{ item.id }}_packing" class="text-start">Вес:</label>
+                       <select class="form-select packing" aria-label="packing" id="{{ item.id }}_packing">
+                           {% for key, value in item.options.packing.items %}
+                                <option value="{{ key }}" >{{ key }} г.</option>
+                           {% endfor %}
+                       </select>
+                   </div>
+                   <div class="d-flex justify-content-between card-option mb-2">
+                       <label for="{{ item.id }}_roasting" class="text-start">Обжарка:</label>
+                       <select class="form-select roasting" aria-label="roasting" id="{{ item.id }}_roasting">
+                           {% for key, value in item.options.roasting.items %}
+                                {% if value.qty %}
+                                    <option value="{{ key }}" id="{{ i.id }}">{{ key }}</option>
+                                {% endif %}
+                           {% endfor %}
+                       </select>
+                   </div>
+                   <div class="d-flex justify-content-between card-option mb-4">
+                       <label class="text-start">Помол:</label>
+                       {% for key, value in item.options.roasting.items %}
+                            <select class="form-select {{ item.id }}_grind hidden" aria-label="grind" name="{{ key }}">
+                               {% for i in value.grind %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                               {% endfor %}
+                           </select>
+                       {% endfor %}
+                   </div>
+                   <div class="d-flex justify-content-center amount mb-4">
+                       <button class="btn btn-primary" value="-" onclick="qty_down('{{ item.id }}_qty')">-</button>
+                       <input type="number" class="form-control ms-3" min="1" max="99" value="1" id="{{ item.id }}_qty">
+                       <button class="btn btn-primary" value="+" onclick="qty_up('{{ item.id }}_qty')">+</button>
+                   </div>
+                   <div class="d-flex justify-content-between mb-2">
+                       <div class="price">
+                           {% for key, value in item.options.packing.items %}
+                                <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">{{ value }}</span>
+                           {% endfor %}
+                           <span>грн</span>
+                       </div>
+                       <button class="add_cart btn btn-primary px-4 py-2" id="{{ item.id }}_addcart"
+                               onClick="add_cart(this.id, {{ item.category.pk }})">Купить</button>
+                   </div>
+               </div>
+           </div>
+           {% endfor %}
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-12 text-center mt-4">
+           <a href="#" class="btn btn-primary px-5 py-3">Посмотреть все товары</a>
+       </div>
+   </div>
+</section>
+</div>
+<section class="container-fluid subscribe mt-5">
+   <div class="container">
+       <div class="row mb-4 pt-5">
+           <div class="col-md-12 text-center">
+               <h2>Подписка на кофе</h2>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-md-6">
+               <h4>Тратьте время на кофе, а не на его покупку</h4>
+               <p>Оставь позади рутину связанную с походами в супермаркет и постоянным заполнением форм в онлайн магазинах.</p>
+               <p>Оформляй подписку и наслаждайся регулярными поставками кофе из Cupman coffee к себе домой.</p>
+           </div>
+           <div class="col-md-6">
+               <h4>Для оформления подписки необходимо:</h4>
+               <ul>
+                   <li>Выбрать сорт кофе, который Вы хотите получать на протяжении срока подписки.</li>
+                   <li>Выбрать помол или оставить выбор помола на кнопке не молоть в этом случае мы доставим кофе в цельных зернах.</li>
+                   <li>Выбрать вес</li>
+                   <li>Выбрать регулярность доставки</li>
+                   <li>Выбрать продолжительность действия подписки</li>
+               </ul>
+           </div>
+       </div>
+       <div class="row">
+           <div class="text-center">
+               <a href="#" class="btn btn-primary px-5 py-3">Оформить подписку</a>
+           </div>
+       </div>
+   </div>
+</section>
+<div class="container-fluid bg">
+   <section class="container features">
+   <div class="row mb-4 pt-5">
+       <div class="col-md-12 text-center">
+           <h2>Почему именно свежеобжаренный кофе?</h2>
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-6">
+           <p>Люди, следящие за своим питанием и ведущие здоровый образ жизни, не будут употреблять
+               некачественный продукт. Давайте вместе попробуем разобраться, почему свежеобжаренный
+               кофе лучше. И лучше ли он?</p>
+           <p>Зеленое кофейное зерно можно хранить довольно долго. В сыром виде оно не так сильно подвержено
+               пагубному влиянию солнечного света и кислорода, как после обжарки, и при соблюдении
+               некоторых простых правил может оставаться свежим в течение целого года.</p>
+           <p>Чего не скажешь о кофе после термической обработки, то есть обжарки. Обжаренный кофе буквально
+               с момента обжарки начинает терять свои вкусовые характеристики.</p>
+           <p>Сразу после обжарки, кофе становится безвкусным и практически не имеет запаха.
+               На очень короткий период - первые три дня. По истечении этого времени происходит "волшебство":
+               зёрна открывают себя во всей красе, с каждым днём аромат усиливается, а ясность вкуса
+               увеличивается. Период, в который кофе считается свежим, а также имеет максимально
+               насыщенный вкус, это всего лишь чуть больше двух месяцев после обжарки.
+               Поэтому вкусным и качественным может быть только кофе свежей обжарки.</p>
+           <p>После семидесяти дней, вкусный ароматный кофе становится просто кофе.
+               С этого момента мы не можем получить желаемого результата, не используя добавления
+               отдушек и консервантов.</p>
+           <p>Особенность нашего продукта в том, что мы продаем только свежеобжаренный кофе. Дату обжарки
+               мы указываем на упаковке. Свидетельством того, что кофе действительно свежий является
+               наличие специального клапана для дегазации на упаковке. </p>
+       </div>
+       <div class="col-md-6 text-center">
+           <img src="{% static 'shop/img/infographics_coffee.png' %}" alt="infographics_coffee">
+       </div>
+       <div class="row">
+           <div class="text-center">
+               <a href="#" class="btn btn-primary px-5 py-3 mb-5 mt-3">Выбрать кофе</a>
+           </div>
+       </div>
+   </div>
+</section>
+   <section class="container accessories">
+   <div class="row mb-3">
+       <div class="col-md-12 text-center">
+           <h2>Аксессуары</h2>
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-12 slick-slider">
+
+           <div class="card mt-3 text-center ms-2" style="width: 18rem;">
+               <a href="#">
+                   <img src="#" class="card-img-top" alt="...">
+               </a>
+               <div class="card-body">
+                   <h5 class="card-title text-center">#</h5>
+                   <div class="d-flex justify-content-center amount mb-4">
+                       <button class="btn btn-primary">-</button>
+                       <input type="number" class="form-control ms-3" value="1" min="1"  max="...">
+                       <button class="btn btn-primary">+</button>
+                   </div>
+                   <div class="d-flex justify-content-between mb-2">
+                       <div class="price">
+                           <span class="fw-bold"></span>
+                           <span>грн</span>
+                       </div>
+                       <a href="#" class="btn btn-primary px-4 py-2">Купить</a>
+                   </div>
+               </div>
+           </div>
+
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-12 text-center mt-4">
+           <a href="#" class="btn btn-primary px-5 py-3">Посмотреть все товары</a>
+       </div>
+   </div>
+</section>
+</div>
+<section class="container about mt-5">
+   <div class="row mb-3">
+       <div class="col-md-12 text-center">
+           <h2>О нас</h2>
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-6">
+           <p>Правильная обжарка – секрет великолепного кофе.</p>
+           <p>Самый вкусный кофе получается после обжарки на профессиональном оборудовании, при строгом
+               соблюдении технологического процесса. Мы используем оборудование лучшей немецкой фирмы Probat.
+               Компания является мировым лидером в сфере производства кофеобжарочного оборудования в виду
+               того, что охватывает более 50% рынка.</p>
+           <p>Правильная обжарка кофе – это синтез умения и творчества. Наши обжарщики используют нужные
+              параметры (температура, время, степень обжарки) таким образом, чтобы получить самый лучший
+              результат.</p>
+           <p>Мы доставляем только свежеобжаренный кофе!</p>
+           <p>Пик аромата и вкуса кофе приходится на 4-й день обжарки. После чего начинается постепенное
+               нисхождение вкусовых характеристик продукта. Поэтому так ценно получить и как можно скорее
+               употребить свежеобжаренные кофейные зерна.</p>
+           <p>Сотрудничая с компанией «Cupman coffee», Вы получаете превосходный кофе прямо с обжарки.
+               Оптимальное решение для ценителей качественного кофе</p>
+           <div class="social text-center mb-3">
+               <a href="#" class="me-5"><i class="fi fi-instagram about_social"></i></a>
+               <a href="#"><i class="fi fi-facebook about_social"></i></a>
+           </div>
+       </div>
+       <div class="col-md-6">
+           <img src="{% static 'shop/img/cupman_about.jpg' %}" alt="cupman_coffee">
+       </div>
+   </div>
+</section>
+{% endblock %}

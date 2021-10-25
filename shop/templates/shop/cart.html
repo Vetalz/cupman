@@ -1,0 +1,118 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row line-bg"></div>
+    </div>
+    <div class="container-fluid bg">
+        <div class="container">
+            <div class="row breadcrumbs-custom mt-5">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Корзина</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <h2>В вашей корзине</h2>
+            </div>
+            <h3 id="cart_available" class="text-center mt-3">Корзина пустая</h3>
+            <div class="cart mt-3">
+                <div id="all_products">
+
+                </div>
+                <div class="row">
+                    <p class="text-end mt-3 total">Итого: <span id="total">0</span> грн</p>
+                </div>
+            </div>
+            <div class="personal-info">
+                <div class="row">
+                    <h3>Выберите способ доставки:</h3>
+                </div>
+                <div class="row">
+                    {% for pk, choice in form.method_delivery.field.widget.choices %}
+                        <div class="form-check-inline mt-3 mb-1">
+                            <input class="form-check-input" type="radio" name="{{ form.method_delivery.name }}"
+                                        id="{{ form.method_delivery.name }}_{{ pk }}" value="{{ pk }}"
+                            {% if pk == "1" %}
+                                checked="checked"
+                            {% endif %} />
+                            <label class="form-check-label" for="{{ form.method_delivery.name }}_{{ pk }}"><span class="fw-bold">{{ choice }} - </span>
+                                {% if pk == "1" %}
+                                    По тарифам Новой Почты или бесплатно (при суммарном заказе ≥ 500 грамм кофе).
+                                {% else %}
+                                    Бесплатно. По адресу: ул. Николая Зинчевського, 18
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row" id="new_post">
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group mb-3">
+                            {{ form.name }}
+    <!--                        <small id="nameHelp" class="form-text text-muted">Введите ФИО</small>-->
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.phone }}
+    <!--                        <small id="nameHelp" class="form-text text-muted">Введите номер телефона</small>-->
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.region }}
+    <!--                        <small id="nameHelp" class="form-text text-muted">Выберите область</small>-->
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.city }}
+    <!--                        <small id="nameHelp" class="form-text text-muted">Введите город</small>-->
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.new_post_office }}
+    <!--                        <small id="nameHelp" class="form-text text-muted">Введите номер отделения</small>-->
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.address }}
+    <!--                        <small id="nameHelp" class="form-text text-muted">Введите имя</small>-->
+                        </div>
+                            {{form.comment }}
+    <!--                        <small id="nameHelp" class="form-text text-muted">Введите имя</small>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h3 class="mt-2">Выберете способ оплаты:</h3>
+                    <div class="row">
+                        {% for pk, choice in form.method_payment.field.widget.choices %}
+                        <div class="form-check-inline mt-3 mb-1">
+                            <input class="form-check-input" type="radio" name="{{ form.method_payment.name }}"
+                                        id="{{ form.method_payment.name }}_{{ pk }}" value="{{ pk }}"
+                            {% if pk == "1" %}
+                                checked="checked"
+                            {% endif %} />
+                            <label class="form-check-label" for="{{ form.method_payment.name }}_{{ pk }}"><span class="fw-bold">{{ choice }} - </span>
+                                {% if pk == "1" %}
+                                    Оплачивайте заказы онлайн без комиссии с помощью карты любого банка Украины
+                                {% else %}
+                                    Выберете этот пункт, если хотите оплатить Ваш заказ после консультации с нашим менеджером.
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ form.product }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center mt-4">
+                    <input type="submit" class="btn btn-primary px-5 py-3" value="Перейти к оплате">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'shop/js/render_cart.js'%}"></script>
+{% endblock %}

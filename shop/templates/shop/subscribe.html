@@ -1,0 +1,252 @@
+{% extends 'coffee/base.html' %}
+{% load static %}
+
+{% block title %}Подписка{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row line-bg"></div>
+    </div>
+    <div class="container-fluid bg-subscribe">
+        <div class="container">
+            <div class="row subscribe-title">
+                <h2>Тратьте время на кофе, а не на его покупку</h2>
+                <p>Подписаться на регулярную доставку</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg">
+       <div class="container">
+           <div class="row breadcrumbs-custom mt-5">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'coffee_catalog' %}">Каталог</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Подписка</li>
+                    </ol>
+                </nav>
+            </div>
+           <div class="row">
+               <h3 class="text-center mt-5">Как это работает?</h3>
+           </div>
+           <div class="row mt-3">
+               <div class="col-md-3 text-center">
+                   <img src="{% static 'coffee/img/coffee-beans.png' %}" alt="coffee-beans" class="subscribe-icon mb-3">
+                   <p class="mb-4">Выбираете ассортимент и объем</p>
+               </div>
+               <div class="col-md-3 text-center">
+                   <img src="{% static 'coffee/img/coffee-bag.png' %}" alt="coffee-bag" class="subscribe-icon mb-3">
+                   <p class="mb-4">Количество поставок в месяц</p>
+               </div>
+               <div class="col-md-3 text-center">
+                   <img src="{% static 'coffee/img/coffee-time.png' %}" alt="coffee-time" class="subscribe-icon mb-3">
+                   <p class="mb-4">Продолжительность подписки</p>
+               </div>
+               <div class="col-md-3 text-center">
+                   <img src="{% static 'coffee/img/coffee-request.png' %}" alt="coffee-request" class="subscribe-icon mb-3">
+                   <p class="mb4">Оставляете заявку</p>
+               </div>
+           </div>
+           <div class="row">
+               <h3 class="text-center mt-5">Сделать заказ</h3>
+           </div>
+           <form action="" method="post">
+               <div class="row mt-3 justify-content-around">
+                   <div class="col-md-4">
+                       <label for="sort">Сорт:</label>
+                           <select class="form-select mb-3" id="sort">
+                               {% for item in coffee %}
+                               <option value="{{ item.title }}">{{ item.name }}</option>
+                               {% endfor %}
+                           </select>
+                       <label for="roasting">Обжарка:</label>
+                           <select class="form-select mb-3" id="roasting">
+                               <option selected>под фильтр</option>
+                               <option value="1">под эспрессо</option>
+                           </select>
+                       <label for="grind">Помол:</label>
+                           <select class="form-select mb-3" id="grind">
+                               <option selected>не молоть</option>
+                               <option value="1">для эспрессо</option>
+                               <option value="2">для турки</option>
+                               <option value="3">для гейзерной кофеварки</option>
+                               <option value="4">для пуровера</option>
+                               <option value="5">для аэропресса</option>
+                           </select>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="mb-3">
+                           <p>Вес:</p>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="weight" id="weight1" value="250" checked>
+                               <label class="form-check-label" for="weight1">250 г.</label>
+                            </div>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="weight" id="weight2" value="500">
+                               <label class="form-check-label" for="weight2">500 г.</label>
+                           </div>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="weight" id="weight3" value="1000">
+                               <label class="form-check-label" for="weight3">1000 г.</label>
+                           </div>
+                       </div>
+                       <div class="mb-3">
+                           <p>Регулярность доставки (в месяц):</p>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="delivery" id="delivery1" value="1"
+                                      checked>
+                               <label class="form-check-label" for="delivery1">1 раз</label>
+                           </div>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="delivery" id="delivery2" value="2">
+                               <label class="form-check-label" for="delivery2">2 раза</label>
+                           </div>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="delivery" id="delivery3" value="4">
+                               <label class="form-check-label" for="delivery3">4 раза</label>
+                           </div>
+                       </div>
+                       <div class="mb-3">
+                           <p>Период подписки:</p>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="period" id="period1" value="1" checked>
+                               <label class="form-check-label" for="period1">1 месяц</label>
+                           </div>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="period" id="period2" value="2">
+                               <label class="form-check-label" for="period2">2 месяца</label>
+                           </div>
+                           <div class="form-check-inline">
+                               <input class="form-check-input" type="radio" name="period" id="period3" value="4">
+                               <label class="form-check-label" for="period3">3 месяца</label>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="row mt-2 justify-content-around">
+                   <div class="col-md-4">
+                        <div class="form-group mb-3">
+                            <label for="input-name">Имя:</label>
+                            <input type="text" class="form-control" id="input-name" aria-describedby="nameHelp"
+                                   placeholder="Имя">
+    <!--                        <small id="nameHelp" class="form-text text-muted">Введите имя</small>-->
+                        </div>
+                       <div class="form-group mb-3">
+                            <label for="input-phone">Телефон:</label>
+                            <input type="text" class="form-control" id="input-phone" aria-describedby="phoneHelp"
+                                   placeholder="Телефон">
+    <!--                        <small id="phoneHelp" class="form-text text-muted">Введите телефон</small>-->
+                        </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group mb-3">
+                            <label for="input-address">Адрес:</label>
+                            <input type="text" class="form-control" id="input-address" aria-describedby="addressHelp"
+                                   placeholder="Адрес">
+    <!--                        <small id="addressHelp" class="form-text text-muted">Введите адрес</small>-->
+                       </div>
+                       <div class="form-group mb-3">
+                            <label for="input-email">Email(необязательно):</label>
+                            <input type="email" class="form-control" id="input-email" aria-describedby="emailHelp"
+                                   placeholder="Email">
+    <!--                        <small id="emailHelp" class="form-text text-muted">Введите email</small>-->
+                        </div>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col-md-12 text-center mt-4">
+                       <input type="submit" class="btn btn-primary px-5 py-3" value="Оставить заявку">
+                   </div>
+               </div>
+           </form>
+           <div class="row">
+               <h3 class="text-center mt-5">Часто задаваемые вопросы</h3>
+           </div>
+           <div class="row mt-3">
+               <div class="accordion" id="accordion">
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingOne">
+                           <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                               Что такое подписка на кофе?
+                           </button>
+                       </h2>
+                       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordion">
+                           <div class="accordion-body">
+                               Подписка на кофе это регулярная доставка свежеобжаренного кофе в выбранный период и
+                               выбранной регулярностью.
+                           </div>
+                       </div>
+                   </div>
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingTwo">
+                           <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Зачем оформлять подписку?
+                           </button>
+                       </h2>
+                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordion">
+                           <div class="accordion-body">
+                               Оформив подписку, вы будете получать свежеобжаренный кофе прямо домой или в офис в
+                               выбранный период и выбранной регулярностью. Вы получаете только кофе свежей обжарки.
+                               Аромат и индивидуальные вкусовые характеристики сорта кофе начинают исчезать
+                               спустя 4-5 недель после обжарки. Наш кофе будет доставлен к Вам на второй-третий
+                               день после обжарки. Цена на кофе на время действия подписки фиксируется. Больше не
+                               надо тратить время на поиски свежеобжаренного кофе в магазине.
+                               На полках супермаркетов кофе хранится месяцами независимо от марки и бренда.
+                               Оформив подписку, кофе у Вас всегда будет свежей обжарки.
+                           </div>
+                       </div>
+                   </div>
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingThree">
+                           <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                Возможно ли изменить сорт кофе в подписке?
+                           </button>
+                       </h2>
+                       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#accordion">
+                           <div class="accordion-body">
+                               Да, сорт можно изменить, для этого необходимо связаться с менеджером магазина
+                           </div>
+                       </div>
+                   </div>
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingFour">
+                           <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                Возможно ли приостановить подписку?
+                           </button>
+                       </h2>
+                       <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                            data-bs-parent="#accordion">
+                           <div class="accordion-body">
+                               Да возможно, для этого необходимо связаться с менеджером магазина и сообщить период на
+                               который необходимо приостановить действия подписки.
+                           </div>
+                       </div>
+                   </div>
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingFive">
+                           <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                Если мне не подходит одно из условий подписки (вес, сорт, регулярность,
+                               периодичность подписки)?
+                           </button>
+                       </h2>
+                       <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                            data-bs-parent="#accordion">
+                           <div class="accordion-body">
+                               Совместно с клиентом мы можем разработать индивидуальную подписку, в ней мы учтем все
+                               пожелания клиента.
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+{% endblock%}

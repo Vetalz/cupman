@@ -1,0 +1,589 @@
+body {
+    background-color: #fbfbfb;
+    color: #282625;
+}
+
+h2 {
+    text-transform: uppercase;
+}
+
+.container {
+    position: relative;
+}
+/*navigation*/
+.navigation {
+    color: #fbfbfb;
+}
+/*end navigation*/
+/*header*/
+.bg_color {
+    background-color: #282625;
+    transition: background-color .5s ease;
+}
+
+.main_screen {
+    background: url('../img/coffee_bg.jpg') no-repeat center left;
+    background-size: cover;
+    height: 90vh;
+    color: #fbfbfb;
+}
+
+.main_screen h1 {
+    text-transform: uppercase;
+}
+
+.navbar-brand img {
+    width: 100px;
+    height: 100px;
+}
+
+
+@media (max-width: 425px) {
+    .navbar-brand img {
+    width: 75px;
+    height: 75px;
+    }
+}
+
+.menu_social {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.basket {
+    font-size: 30px;
+    color: #fbfbfb;
+    text-shadow: 0 0 5px rgb(0 0 0);
+    text-decoration: none;
+}
+
+.basket:hover {
+    color: #d59f65;
+}
+
+.basket-qty {
+    background-color: green;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #fbfbfb;
+    text-shadow: 0 0 5px rgb(0 0 0);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #d59f65;
+}
+
+.dropdown-menu {
+    background-color: #fbfbfb;
+}
+
+.dropdown-item {
+    color: #282625;
+}
+
+.dropdown-item:hover {
+    background-color: #d59f65;
+}
+
+.dropdown-item:active {
+    background-color: #282625;
+    color: #fbfbfb;
+}
+
+.title {
+    text-shadow: 0 0 5px rgb(0 0 0);
+    margin-bottom: 5rem;
+}
+
+header h1 {
+    margin-top: 30vh;
+    font-size: 60px;
+}
+
+.lang {
+    display: inline-block;
+}
+
+.lang_item{
+    margin-left: 3rem;
+}
+
+.nav_social {
+    display: inline-block;
+}
+
+.cart-msg {
+    position: absolute;
+    top: 125px;
+    right: 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: green;
+    opacity: .7;
+    visibility: visible;
+    transition: .55s opacity, .55s visibility;
+}
+
+.cart-msg-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: .55s opacity, .55s visibility;
+}
+
+@media (max-width: 720px) {
+    header h1 {
+        margin-top: 30vh;
+        font-size: 40px;
+    }
+
+    header h3 {
+        font-size: 14px;
+    }
+
+    .cart-msg {
+        top:100px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main_screen {
+        height: 100vh;
+    }
+
+    .lang_item {
+        margin-left: 0;
+    }
+
+    .title {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav_social {
+        margin-right: .5rem;
+        margin-left: .5rem;
+}
+}
+
+/*end header*/
+/*quality*/
+.quality i {
+    font-size: 60px;
+}
+
+.bg {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.bg:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/coffee_bg_1.png');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 25%;
+    opacity: .5;
+    z-index: -1;
+}
+
+.bg:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/coffee_bg_2.png');
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-size: 16%;
+    opacity: .5;
+    z-index: -1;
+}
+
+@media (max-width: 768px) {
+    .bg:before {
+        display: none;
+    }
+    .bg:after {
+        display: none;
+    }
+}
+/*end quality*/
+/*popular_product*/
+.all_product {
+    color: #794520;
+}
+
+.all_product:hover {
+    color: #d59f65;
+}
+
+.slick-slider {
+    position: relative;
+}
+
+.slick-slider .slick-arrow {
+    position: absolute;
+    top:50%;
+    z-index: 10;
+}
+
+.slick-slider .slick-prev {
+    left: 0;
+}
+
+.slick-slider .slick-next {
+    right: 0;
+}
+
+.slick-slider button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: #fbfbfb;
+    font-size: 24px;
+    background-color: green;
+    cursor: pointer;
+    border-radius: .25rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.slick-slider .add_cart {
+    font-size: 1rem;
+    width: auto;
+    height: auto;
+}
+
+/*end popular_product*/
+/*card*/
+.card-option label {
+    width: 75%;
+    line-height: 2;
+}
+
+.btn-primary {
+    /*background-color: #794520;*/
+    /*border-color: #794520;*/
+    background-color: green;
+    border-color: green;
+}
+
+.btn-primary:hover {
+    background-color: #794520;
+    border-color: #794520;
+}
+
+.btn-custom {
+    background-color: inherit;
+    text-shadow: 0 0 5px rgb(0 0 0);
+    margin-left: 35px;
+}
+
+@media (max-width: 768px) {
+    .btn-custom {
+        margin-left: 0;
+    }
+}
+
+.amount button {
+    background-color: #fbfbfb;
+    width: 35px;
+    color: #794520;
+    border: 1px solid #794520;
+    padding-bottom: 35px;
+}
+
+.amount input {
+    width: 56px;
+    border: none;
+}
+
+.price span {
+    font-size: 28px;
+}
+
+.price span:last-child {
+    font-size: 1rem;
+}
+
+.form-select {
+    border: 1px solid #794520;
+}
+
+.form-select:focus {
+    border: 1px solid #794520;
+    box-shadow: 0 0 3pt 2pt #794520;
+}
+/*end card*/
+/*subscribe*/
+.subscribe {
+    background-image: url('../img/coffee_subscribe.jpg');
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fbfbfb;
+    text-shadow: 0 0 5px rgb(0 0 0);
+}
+
+.subscribe .btn {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+/*end subscribe*/
+/*features*/
+.features img {
+    height: 100%;
+}
+
+@media (max-width: 1024px) {
+    .features img {
+        width: 100%;
+    }
+}
+/*end features*/
+/*accessories*/
+
+/*end accessories*/
+/*about*/
+.about img {
+    height: 100%;
+    width: 100%;
+    border-radius: .25rem;
+}
+
+.about_social {
+    font-size: 38px;
+    color: #282625;
+    padding: 15px;
+}
+
+.about_social:hover {
+    color: #d59f65;
+}
+/*end about*/
+/*footer*/
+footer {
+    background-color: #282625;
+    color: #fbfbfb;
+}
+
+footer a {
+    color: #d59f65;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #fbfbfb;
+}
+
+.contact {
+    font-size: 22px;
+}
+
+@media (max-width: 768px) {
+    .contact {
+        font-size:1rem;
+    }
+}
+/*end footer*/
+/*catalog*/
+.line-bg {
+    height: 110px;
+    background-color: #282625;
+}
+@media (max-width: 425px) {
+    .line-bg {
+        height: 85px;
+    }
+}
+
+.breadcrumbs-custom {
+    margin-top: 50px;
+}
+
+.breadcrumb-item a {
+    color: #794520;
+}
+
+.breadcrumb-item.active {
+    color: #d59f65;
+}
+
+.nav-custom a {
+    color: #794520;
+}
+
+.nav-custom a:hover {
+    color: #d59f65;
+}
+
+.nav-custom .active {
+    text-decoration: underline;
+}
+
+.card-custom {
+    width: 320px;
+    padding: 0;
+}
+
+.card-custom button {
+    padding-bottom: 5px;
+}
+
+.coffee-text {
+    color: #794520;
+}
+/*end catalog*/
+/*subscribe*/
+.bg-subscribe{
+    background: url('../img/coffee_subscribe_2.jpg') no-repeat center;
+    background-size: cover;
+    height: 35vh;
+    margin: 0;
+    padding: 0;
+}
+
+.subscribe-title {
+    color: #fbfbfb;
+    text-shadow: 0 0 5px rgb(0 0 0)
+}
+
+.subscribe-title h2 {
+    margin-top: 10vh;
+}
+
+.subscribe-icon {
+    height: 64px;
+    width: 64px;
+}
+
+.form-check-input:checked {
+    background-color: #794520;
+    border-color: #794520;
+}
+
+.form-check-input:focus {
+    border: 1px solid #794520;
+    box-shadow: 0 0 3pt 2pt #794520;
+}
+
+.form-control {
+    border: 1px solid #d59f65;
+}
+
+.form-control:focus {
+    border: 1px solid #794520;
+    box-shadow: 0 0 3pt 2pt #794520;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #282625;
+    background-color: #fbfbfb;
+}
+
+.accordion-button:focus {
+    z-index: 3;
+    border-color: #794520;;
+    outline: 0;
+    box-shadow: 0 0 3pt 2pt #794520;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    transform: rotate(-180deg);
+}
+/*end subscribe*/
+/*product*/
+.carousel-inner {
+    border-radius: 5px;
+}
+
+.product-img {
+    width: 100%;
+    border-radius: 5px;
+}
+.amount-item {
+    padding-bottom: 0;
+}
+
+.amount-item input {
+    width: 60px;
+    border: none;
+}
+/*end product*/
+/*cart*/
+.cart {
+    border-top: 1px dashed #d59f65;
+}
+
+.cart-item {
+    border-bottom: 1px dashed #d59f65;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.cart-item a {
+    color: #282625;
+}
+
+.cart-item a:hover {
+    color: #d59f65;
+}
+
+.img-cart {
+    width: 128px;
+    height: 128px;
+    border-radius: 5px;
+}
+
+.img-cart img{
+    width: 100%;
+    border-radius: 5px;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.total {
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.2;
+    border-bottom: 1px dashed #d59f65;
+    padding-bottom: 15px;
+}
+
+#self-pickup {
+    display: none;
+}
+
+.personal-info {
+    border-bottom: 1px dashed #d59f65;
+    padding-bottom: 15px;
+}
+/*end cart*/
+
+.hidden {
+    display: none;
+}
