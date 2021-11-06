@@ -135,3 +135,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = credential.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = credential.EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_TARGET_1 = credential.EMAIL_TARGET_1
+EMAIL_TARGET_2 = credential.EMAIL_TARGET_2
+EMAIL_TARGET = [EMAIL_TARGET_1]

@@ -1,10 +1,18 @@
 {% extends 'shop/base.html' %}
 {% load static %}
+{% load calc_price %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
     <div class="row line-bg"></div>
+</div>
+<div class="container-fluid announcement">
+    <div class="container">
+        <div class="row text-center">
+            <p>БЕЗКОШТОВНА ДОСТАВКА Новою Поштою - від 400 грн, кур'єром по Кривому Рогу - від 800 грн. Для роздрібних замовлень.</p>
+        </div>
+    </div>
 </div>
 <div class="container-fluid bg">
     <div class="container">
@@ -44,8 +52,16 @@
                <a href="{{ item.get_absolute_url }}" id="{{ item.id }}_url">
                    <img src="{{ item.main_image.url }}" class="card-img-top" id="{{ item.id }}_image" alt="{{ item.name }}">
                </a>
+               {% if item.new %}
+                    <span class="mark">Новинка!</span>
+               {% endif %}
+               {% if item.sale_percent %}
+                    <span class="mark">Товар тижня!</span>
+               {% endif %}
                <div class="card-body">
-                   <h5 class="card-title text-center" id="{{ item.id }}_name">{{ item.name }}</h5>
+                   <h5 class="card-title text-center" id="{{ item.id }}_name">
+                       <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+                   </h5>
                    <p>{{ item.description|truncatechars:50 }}</p>
                    <div class="d-flex justify-content-between card-option mb-2">
                        <label for="{{ item.id }}_packing" class="text-start">Вес:</label>
@@ -83,9 +99,18 @@
                    <div class="d-flex justify-content-between mb-2">
                        <div class="price">
                            {% for key, value in item.options.packing.items %}
-                                <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">{{ value }}</span>
+                                {% if item.sale_percent %}
+                                    <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">{% calc_price value item.sale_percent %}</span>
+                                {% else %}
+                                    <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">{{ value }}</span>
+                                {% endif %}
                            {% endfor %}
                            <span>грн</span>
+                           {% for key, value in item.options.packing.items %}
+                                {% if item.sale_percent %}
+                                    <span class="old-price hidden {{ item.id }}_price" id="{{ key }}_old">{{ value }} грн</span>
+                                {% endif %}
+                           {% endfor %}
                        </div>
                        <button class="add_cart btn btn-primary px-4 py-2" id="{{ item.id }}_addcart"
                                onClick="add_cart(this.id, {{ item.category.pk }})">Купить</button>
@@ -121,9 +146,8 @@
                 <li><span class="fw-bold">Коста Рика</span> — кофеманы описывают вкус напитка, как яркий и огненный. В нем чувствуются винные нотки,
                     специи и кислинка.</li>
             </ul>
-
         </div>
     </div>
 </div>
-
+{% include 'shop/inc/_help_form.html' %}
 {% endblock %}

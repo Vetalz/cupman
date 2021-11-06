@@ -21,6 +21,7 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='product', verbose_name='Категория')
     popular = models.BooleanField(verbose_name='Популярный')
     new = models.BooleanField(verbose_name='Новинка')
+    sale_percent = models.PositiveIntegerField(verbose_name='Скидка, %', null=True, blank=True)
     description = models.TextField(verbose_name='Описание', blank=True)
     main_image = models.ImageField(upload_to='coffee/%Y/%m/%d/', verbose_name='Фото')
     related_product = models.ManyToManyField('self', verbose_name='Связанные продукты', blank=True)

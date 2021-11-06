@@ -22,7 +22,7 @@ h2 {
 }
 
 .main_screen {
-    background: url('../img/coffee_bg.jpg') no-repeat center left;
+    background: url('../img/coffee_bg_3.jpg') no-repeat center left;
     background-size: cover;
     height: 90vh;
     color: #fbfbfb;
@@ -135,6 +135,12 @@ header h1 {
     opacity: 0;
     visibility: hidden;
     transition: .55s opacity, .55s visibility;
+}
+
+.announcement {
+    background-color: green;
+    color: #fefefe;
+    padding-top: 16px;
 }
 
 @media (max-width: 720px) {
@@ -317,12 +323,10 @@ header h1 {
     border: none;
 }
 
-.price span {
-    font-size: 28px;
-}
-
-.price span:last-child {
-    font-size: 1rem;
+.old-price {
+    font-size: 15px;
+    text-decoration: line-through;
+    color: #d59f65;
 }
 
 .form-select {
@@ -332,6 +336,15 @@ header h1 {
 .form-select:focus {
     border: 1px solid #794520;
     box-shadow: 0 0 3pt 2pt #794520;
+}
+.mark {
+    position: absolute;
+    background-color: green;
+    color: #fbfbfb;
+    top: 20px;
+    right: 0;
+    padding: 5px 10px;
+    border-radius: 0.25rem 0 0 0.25rem;
 }
 /*end card*/
 /*subscribe*/
@@ -535,6 +548,9 @@ footer a:hover {
     border-top: 1px dashed #d59f65;
 }
 
+h5 a {
+    color:#282625;
+}
 .cart-item {
     border-bottom: 1px dashed #d59f65;
     padding-top: 15px;
@@ -561,9 +577,8 @@ footer a:hover {
 }
 
 .price {
-    font-size: 2rem;
+    font-size: 24px;
     font-weight: 500;
-    line-height: 1.2;
 }
 
 .total {
@@ -587,3 +602,60 @@ footer a:hover {
 .hidden {
     display: none;
 }
+
+/*pop-up*/
+.pop-up {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s;
+    top: -1000px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: scroll;
+    padding: 150px 15px;
+}
+
+.pop-up-active {
+    position: fixed;
+    top: 0;
+    visibility: visible;
+    opacity: 1;
+    transition: .3s;
+}
+
+.pop-up-content {
+    width: 100%;
+    max-width: 300px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 3px;
+    position: relative;
+    box-shadow: 0 5px 15px black;
+}
+
+.pop-up-content button {
+    text-align: right;
+}
+
+#error {
+    color: red;
+    margin-bottom: 30px;
+}
+
+#success {
+    color: green;
+    margin-bottom: 30px;
+}
+
+#spinner {
+    margin: 0 auto;
+    width: 10%;
+}
+/*end pop-up*/

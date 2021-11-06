@@ -1,0 +1,27 @@
+{% load static %}
+<div class="pop-up" id="pop-up">
+    <div class="pop-up-content text-center">
+        <div class="text-end">
+            <button type="button" class="btn-close" aria-label="Delete" onClick="close_pop_up()"></button>
+        </div>
+        <h4>Потрібна допомога в підборі кави?</h4>
+        <p>Наші консультанти допоможуть підібрати сорт кави на ваш смак.</p>
+        <div>
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <input type="text" class="form-control" placeholder="Як до Вас звертатися?" id="name">
+            </div>
+            <div class="form-group mb-3 text-start">
+                <label for="phone">Вкажіть номер телефону:</label>
+                <input type="text" class="form-control" id="phone">
+                <small id="error" class="hidden">Введіть коректний номер телефону</small>
+            </div>
+            <div class="form-group mb-3">
+                <img src="{% static 'shop/img/spinner.gif' %}" alt="Отправка" id="spinner" class="hidden">
+                <small id="success" class="hidden">Дякую! Дані успішно передані в відділ продажу,
+                    очікуйте на дзвінок.</small>
+            </div>
+            <input type="button" class="btn btn-primary px-5 py-3" value="Відправити" onclick="send_help_form(this)">
+        </div>
+    </div>
+</div>

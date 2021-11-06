@@ -46,15 +46,26 @@ function initial_grind(){
 
 function get_price(option, id){
     let price_id = id + '_price'
-        let price = document.getElementsByClassName(price_id)
-        price = Array.from(price)
-        for(let n in price){
-            if(price[n].id === option){
-                price[n].classList.remove('hidden')
-            } else {
-                price[n].classList.add('hidden')
-            }
+    let old_price_id = id + '_old_price'
+    let price = document.getElementsByClassName(price_id)
+    let old_price = document.getElementsByClassName(old_price_id)
+    price = Array.from(price)
+    old_price = Array.from(old_price)
+    for(let n in price){
+        if(price[n].id === option){
+            price[n].classList.remove('hidden')
+        } else {
+            price[n].classList.add('hidden')
         }
+    }
+
+    for(let n in old_price){
+        if(old_price[n].id === `${option}_old`){
+            old_price[n].classList.remove('hidden')
+        } else {
+            old_price[n].classList.add('hidden')
+        }
+    }
 }
 
 function choice_price(){
