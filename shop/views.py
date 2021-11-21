@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DetailView
-from .models import Product, Category, Order
+from .models import Product, Category, Order, Roasting, Grind
 from .forms import OrderForm
 
 
@@ -57,7 +57,11 @@ class Subscribe(ListView):
     def get_context_data(self, **kwargs):
         context = super(Subscribe, self).get_context_data(**kwargs)
         context['title'] = 'Підписка на каву'
-        context['products'] = Product.objects.filter(is_subscribe=True)
+        context['category_item'] = Category.objects.get(pk=1)
+        context['product'] = Product.objects.filter(is_subscribe=True).order_by('pk')
+        context['roasting'] = Roasting.objects.all()
+        context['grind'] = Grind.objects.all()
+
         return context
 
 

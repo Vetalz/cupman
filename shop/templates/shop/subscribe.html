@@ -53,26 +53,30 @@
            <form action="" method="post">
                <div class="row mt-3 justify-content-around">
                    <div class="col-md-4">
-                       <label for="sort">Сорт:</label>
-                           <select class="form-select mb-3" id="sort">
-                               {% for item in coffee %}
-                               <option value="{{ item.title }}">{{ item.name }}</option>
+                       <label for="kind">Сорт:</label>
+                           <select class="form-select mb-3" id="kind">
+                               {% for item in product %}
+                               <option value="{{ item.name }}{% if item.roasting.all %}_roasting{% endif %}">{{ item.name }}</option>
                                {% endfor %}
                            </select>
-                       <label for="roasting">Обсмаження:</label>
-                           <select class="form-select mb-3" id="roasting">
-                               <option selected>под фильтр</option>
-                               <option value="1">под эспрессо</option>
-                           </select>
-                       <label for="grind">Помел:</label>
-                           <select class="form-select mb-3" id="grind">
-                               <option selected>не молоть</option>
-                               <option value="1">для эспрессо</option>
-                               <option value="2">для турки</option>
-                               <option value="3">для гейзерной кофеварки</option>
-                               <option value="4">для пуровера</option>
-                               <option value="5">для аэропресса</option>
-                           </select>
+                       <div id="feature">
+                           <label for="roasting">Обсмаження:</label>
+                               <select class="form-select mb-3" id="roasting">
+                                   {% for r in roasting %}
+                                        <option value="{{ r.id }}">{{ r.name }}</option>
+                                   {% endfor %}
+                               </select>
+                           <label for="grind">Помел:</label>
+                               {% for r in roasting %}
+                                   <select class="grind form-select mb-3 hidden" id="grind" name="{{ r.id }}">
+                                       {% for g in r.grind.all %}
+                                            <option value="{{ g.name }}">
+                                                {{ g.name }}
+                                            </option>
+                                       {% endfor %}
+                                   </select>
+                               {% endfor %}
+                       </div>
                    </div>
                    <div class="col-md-4">
                        <div class="mb-3">
@@ -249,4 +253,5 @@
            </div>
        </div>
     </div>
+    <script src="{% static 'shop/js/subscribe.js' %}"></script>
 {% endblock%}

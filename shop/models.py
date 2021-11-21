@@ -30,6 +30,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описание', blank=True)
     main_image = models.ImageField(upload_to='coffee/%Y/%m/%d/', verbose_name='Фото')
     related_product = models.ManyToManyField('self', verbose_name='Связанные продукты', blank=True)
+    roasting = models.ManyToManyField('Roasting', verbose_name='Виды обжарки', blank=True)
     qty = models.PositiveIntegerField(verbose_name='Количество')
     options = models.JSONField(verbose_name='Параметры')
     is_subscribe = models.BooleanField(default=False, verbose_name='Доступен по подписке')
