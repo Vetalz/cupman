@@ -167,11 +167,35 @@ class Subscribe(models.Model):
     date_created = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     date_updated = models.DateField(auto_now=True, verbose_name='Дата обновления')
 
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+
+    def __str__(self):
+        return self.phone
 
 
+class Roasting(models.Model):
+    name = models.CharField(max_length=200, verbose_name='Обжарка')
+    grind = models.ManyToManyField('Grind', verbose_name='Помол', related_name='roasting')
+
+    class Meta:
+        verbose_name = 'Вид обжарки'
+        verbose_name_plural = 'Виды обжарки'
+
+    def __str__(self):
+        return self.name
 
 
+class Grind(models.Model):
+    name = models.CharField(max_length=200, verbose_name='Помол')
 
+    class Meta:
+        verbose_name = 'Вид помола'
+        verbose_name_plural = 'Виды помолов'
+
+    def __str__(self):
+        return self.name
 
 
 

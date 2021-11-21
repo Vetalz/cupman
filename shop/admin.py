@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Category, Product, Order
+from .models import Category, Product, Order, Subscribe, Roasting, Grind
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -25,6 +25,16 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['name', 'phone', 'status', 'city', 'region', 'date_created', 'date_updated']
 
 
+class SubscribeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'phone', 'product', 'period', 'status', 'date_created']
+    list_editable = ['status']
+    list_display_links = ['id', 'name', 'phone']
+    list_filter = ['name', 'phone', 'status', 'city', 'region', 'date_created', 'date_updated']
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Subscribe, SubscribeAdmin)
+admin.site.register(Roasting)
+admin.site.register(Grind)
