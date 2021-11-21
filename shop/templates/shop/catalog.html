@@ -19,35 +19,31 @@
         <div class="row breadcrumbs-custom">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Кофе</li>
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Головна</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ category_item.name }}</li>
                 </ol>
             </nav>
         </div>
         <div class="row">
-            <h2>{{ title }}</h2>
+            <h2>{{ category_item.title }}</h2>
         </div>
         <div class="row">
-            <p class="quote">{{ subtitle }}</p>
+            <p class="quote">{{ category_item.subtitle }}</p>
         </div>
         <div class="row mt-5">
             <ul class="nav justify-content-center nav-custom">
+                {% for item in category %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+                    </li>
+                {% endfor %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'coffee_catalog' %}">Кофе</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Не кофе</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Аксессуары</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Подписка</a>
+                    <a class="nav-link active" href="{% url 'subscribe' %}">Підписка</a>
                 </li>
             </ul>
         </div>
         <div class="row justify-content-around">
-            {% for item in coffee %}
+            {% for item in product %}
            <div class="card  mt-3 text-center ms-2 card-custom" style="width: 18rem;">
                <a href="{{ item.get_absolute_url }}" id="{{ item.id }}_url">
                    <img src="{{ item.main_image.url }}" class="card-img-top" id="{{ item.id }}_image" alt="{{ item.name }}">
@@ -64,25 +60,28 @@
                    </h5>
                    <p>{{ item.description|truncatechars:50 }}</p>
                    <div class="d-flex justify-content-between card-option mb-2">
-                       <label for="{{ item.id }}_packing" class="text-start">Вес:</label>
+                       <label for="{{ item.id }}_packing" class="text-start">Вага:</label>
                        <select class="form-select packing" aria-label="packing" id="{{ item.id }}_packing">
                            {% for key, value in item.options.packing.items %}
                                 <option value="{{ key }}" >{{ key }} г</option>
                            {% endfor %}
                        </select>
                    </div>
-                   <div class="d-flex justify-content-between card-option mb-2">
-                       <label for="{{ item.id }}_roasting" class="text-start">Обжарка:</label>
-                       <select class="form-select roasting" aria-label="roasting" id="{{ item.id }}_roasting">
-                           {% for key, value in item.options.roasting.items %}
-                                {% if value.qty %}
-                                    <option value="{{ key }}" id="{{ i.id }}">{{ key }}</option>
-                                {% endif %}
-                           {% endfor %}
-                       </select>
-                   </div>
+                   {% if item.options.roasting %}
+                       <div class="d-flex justify-content-between card-option mb-2">
+                           <label for="{{ item.id }}_roasting" class="text-start">Обсмаження:</label>
+                           <select class="form-select roasting" aria-label="roasting" id="{{ item.id }}_roasting">
+                               {% for key, value in item.options.roasting.items %}
+                                    {% if value.qty %}
+                                        <option value="{{ key }}">{{ key }}</option>
+                                    {% endif %}
+                               {% endfor %}
+                           </select>
+                       </div>
+                   {% endif %}
+                   {% if item.options.roasting %}
                    <div class="d-flex justify-content-between card-option mb-4">
-                       <label class="text-start">Помол:</label>
+                       <label class="text-start">Помел:</label>
                        {% for key, value in item.options.roasting.items %}
                             <select class="form-select {{ item.id }}_grind hidden" aria-label="grind" name="{{ key }}">
                                {% for i in value.grind %}
@@ -91,6 +90,7 @@
                            </select>
                        {% endfor %}
                    </div>
+                   {% endif %}
                    <div class="d-flex justify-content-center amount mb-4">
                        <button class="btn btn-primary" value="-" onclick="qty_down('{{ item.id }}_qty')">-</button>
                        <input type="number" class="form-control ms-3" min="1" max="99" value="1" id="{{ item.id }}_qty">
@@ -99,21 +99,23 @@
                    <div class="d-flex justify-content-between mb-2">
                        <div class="price">
                            {% for key, value in item.options.packing.items %}
-                                {% if item.sale_percent %}
-                                    <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">{% calc_price value item.sale_percent %}</span>
-                                {% else %}
-                                    <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">{{ value }}</span>
-                                {% endif %}
+                                    <span class="fw-bold hidden {{ item.id }}_price" id="{{ key }}">
+                                        {% if item.sale_percent %}
+                                            {% calc_price value item.sale_percent %}
+                                        {% else %}
+                                            {{ value }}
+                                        {% endif %}
+                                    </span>
                            {% endfor %}
                            <span>грн</span>
                            {% for key, value in item.options.packing.items %}
                                 {% if item.sale_percent %}
-                                    <span class="old-price hidden {{ item.id }}_price" id="{{ key }}_old">{{ value }} грн</span>
+                                    <span class="old-price hidden {{ item.id }}_old_price" id="{{ key }}_old">{{ value }} грн</span>
                                 {% endif %}
                            {% endfor %}
                        </div>
                        <button class="add_cart btn btn-primary px-4 py-2" id="{{ item.id }}_addcart"
-                               onClick="add_cart(this.id, {{ item.category.pk }})">Купить</button>
+                               onClick="add_cart(this.id, {{ item.category.pk }})">Купити</button>
                    </div>
                </div>
            </div>

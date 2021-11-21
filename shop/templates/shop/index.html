@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="text-center">
-            <a href="{% url 'coffee_catalog' %}" class="btn btn-primary px-5 py-3 mb-5">Кофе домой</a>
+            <a href="{% url 'coffee_catalog' slug='coffee' %}" class="btn btn-primary px-5 py-3 mb-5">Кофе домой</a>
             <a href="#" class="btn btn-primary btn-custom px-5 py-3 mb-5">Кофе для бизнеса</a>
         </div>
     </div>
@@ -86,26 +86,30 @@
                            {% endfor %}
                        </select>
                    </div>
-                   <div class="d-flex justify-content-between card-option mb-2">
-                       <label for="{{ item.id }}_roasting" class="text-start">Обжарка:</label>
-                       <select class="form-select roasting" aria-label="roasting" id="{{ item.id }}_roasting">
-                           {% for key, value in item.options.roasting.items %}
-                                {% if value.qty %}
-                                    <option value="{{ key }}" id="{{ i.id }}">{{ key }}</option>
-                                {% endif %}
-                           {% endfor %}
-                       </select>
-                   </div>
-                   <div class="d-flex justify-content-between card-option mb-4">
-                       <label class="text-start">Помол:</label>
-                       {% for key, value in item.options.roasting.items %}
-                            <select class="form-select {{ item.id }}_grind hidden" aria-label="grind" name="{{ key }}">
-                               {% for i in value.grind %}
-                                    <option value="{{ i }}">{{ i }}</option>
+                   {% if item.options.roasting %}
+                       <div class="d-flex justify-content-between card-option mb-2">
+                           <label for="{{ item.id }}_roasting" class="text-start">Обжарка:</label>
+                           <select class="form-select roasting" aria-label="roasting" id="{{ item.id }}_roasting">
+                               {% for key, value in item.options.roasting.items %}
+                                    {% if value.qty %}
+                                        <option value="{{ key }}">{{ key }}</option>
+                                    {% endif %}
                                {% endfor %}
                            </select>
-                       {% endfor %}
-                   </div>
+                       </div>
+                   {% endif %}
+                   {% if item.options.roasting %}
+                       <div class="d-flex justify-content-between card-option mb-4">
+                           <label class="text-start">Помол:</label>
+                           {% for key, value in item.options.roasting.items %}
+                                <select class="form-select {{ item.id }}_grind hidden" aria-label="grind" name="{{ key }}">
+                                   {% for i in value.grind %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                   {% endfor %}
+                               </select>
+                           {% endfor %}
+                       </div>
+                   {% endif %}
                    <div class="d-flex justify-content-center amount mb-4">
                        <button class="btn btn-primary" value="-" onclick="qty_down('{{ item.id }}_qty')">-</button>
                        <input type="number" class="form-control ms-3" min="1" max="99" value="1" id="{{ item.id }}_qty">
@@ -139,7 +143,7 @@
    </div>
    <div class="row">
        <div class="col-md-12 text-center mt-4">
-           <a href="{% url 'coffee_catalog' %}" class="btn btn-primary px-5 py-3">Посмотреть все товары</a>
+           <a href="{% url 'coffee_catalog' slug='coffee' %}" class="btn btn-primary px-5 py-3">Посмотреть все товары</a>
        </div>
    </div>
 </section>
@@ -257,26 +261,26 @@
 <section class="container about mt-5">
    <div class="row mb-3">
        <div class="col-md-12 text-center">
-           <h2>О нас</h2>
+           <h2>Про нас</h2>
        </div>
    </div>
    <div class="row">
        <div class="col-md-6">
-           <p>Правильная обжарка – секрет великолепного кофе.</p>
-           <p>Самый вкусный кофе получается после обжарки на профессиональном оборудовании, при строгом
-               соблюдении технологического процесса. Мы используем оборудование лучшей немецкой фирмы Probat.
-               Компания является мировым лидером в сфере производства кофеобжарочного оборудования в виду
-               того, что охватывает более 50% рынка.</p>
-           <p>Правильная обжарка кофе – это синтез умения и творчества. Наши обжарщики используют нужные
-              параметры (температура, время, степень обжарки) таким образом, чтобы получить самый лучший
-              результат.</p>
-           <p>Мы доставляем только свежеобжаренный кофе!</p>
-           <p>Пик аромата и вкуса кофе приходится на 4-й день обжарки. После чего начинается постепенное
-               нисхождение вкусовых характеристик продукта. Поэтому так ценно получить и как можно скорее
-               употребить свежеобжаренные кофейные зерна.</p>
-           <p>Сотрудничая с компанией «Cupman coffee», Вы получаете превосходный кофе прямо с обжарки.
-               Оптимальное решение для ценителей качественного кофе</p>
-           <div class="social text-center mb-3">
+           <p>
+               Компанія пропонує своїм клієнтам широкий асортимент свіжообсмажених кавових зерен та фірмових
+               аксесуарів для ефектної подачі кави. На сайті представлені моносорти з різних країн, вишукані суміші
+               та преміальний specialty coffee. Ми обсмажує добірні кавові зерна згідно з
+               власною авторською методикою, щоб досягти максимальної насиченості смаку та аромату напою.
+               Ми також запрошуємо початківців бариста пройти курс "Секрети кавової майстерності"
+               у тренінг-центрі та стати сертифікованим фахівцем у даній галузі.
+           </p>
+           <p class="fst-italic">
+               "За 6 років, я пройшов шлях від бариста до власника компанії з обсмажування кави і я знаю як створити
+               якісний продукт як для самостійного приготування вдома, так і у вашому закладі. Буду радий поділитися
+               з вами своїм досвідом."
+           </p>
+           <p><span class="fw-bold">Олексій Лежень</span> - засновник компанії Cupman Coffee roasters</p>
+           <div class="social text-center mt-5">
                <a href="#" class="me-5"><i class="fi fi-instagram about_social"></i></a>
                <a href="#"><i class="fi fi-facebook about_social"></i></a>
            </div>

@@ -9,8 +9,24 @@ for (let product in all_products) {
 
 function render(product) {
     let product_item = '';
+    let product_item_start = '';
+    let product_item_end = '';
+    let feature_item = '';
+    if (product.roasting){
+        feature_item = `<div class="col-md-2 d-flex flex-column justify-content-center">
+                           <p class="text-center">Вес: ${product.packing} г</p>
+                           <p class="text-center">Обжарка: ${product.roasting}</p>
+                           <p class="text-center">Помол: ${product.grind}</p>
+                       </div>`
+    } else {
+        feature_item = `<div class="col-md-2 d-flex flex-column justify-content-center">
+                           <p class="text-center">Вес: ${product.packing} г</p>
+                        </div>`
+    }
+
     let total_price_product = product.qty * product.price
-    product_item = `<div class="row cart-item" id="${product.id}">
+
+    product_item_start = `<div class="row cart-item" id="${product.id}">
                         <div class="col-md-2 d-flex align-items-center justify-content-center mt-1 mb-1">
                             <div class="img-cart">
                                 <img src="${product.image}" alt="${product.name}">
@@ -18,13 +34,8 @@ function render(product) {
                        </div>
                        <div class="col-md-3 d-flex align-items-center justify-content-center">
                            <h3><a href="${product.url}">${product.name}</a></h3>
-                       </div>
-                       <div class="col-md-2 d-flex flex-column justify-content-end">
-                           <p class="text-center">Вес: ${product.packing} г</p>
-                           <p class="text-center">Обжарка: ${product.roasting}</p>
-                           <p class="text-center">Помол: ${product.grind}</p>
-                       </div>
-                       <div class="col-md-2 d-flex align-items-center justify-content-center mt-1 mb-1">
+                       </div>`
+    product_item_end = `<div class="col-md-2 d-flex align-items-center justify-content-center mt-1 mb-1">
                            <div class="amount-item d-flex">
                                <button class="btn btn-primary" value="-" onClick="qty_down_cart('${product.id}_qty')">-</button>
                                <input type="number" class="form-control ms-3" min="1" max="99" value="${+product.qty}" id="${product.id}_qty">
@@ -37,7 +48,8 @@ function render(product) {
                        <div class="col-md-1 d-flex align-items-center justify-content-center mt-1 mb-1">
                             <button type="button" class="btn-close" aria-label="Delete" onClick="del_product(${product.id})"></button>
                        </div>
-                   </div>`
+                        </div>`
+    product_item = product_item_start + feature_item + product_item_end
     cart.innerHTML += product_item;
     update_total_price(total_price_product)
 }

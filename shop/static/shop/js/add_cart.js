@@ -15,16 +15,21 @@ function add_cart(id_product, id_category) {
     let url = document.getElementById(id_url).href;
     let image = document.getElementById(id_image).src;
     let packing = document.getElementById(id_packing).value;
-    let roasting = document.getElementById(id_roasting).value;
+    let roasting = null;
+    if (document.getElementById(id_roasting)) {
+         roasting = document.getElementById(id_roasting).value;
+    }
     let qty = document.getElementById(id_qty).value;
 
-    let grind = document.getElementsByClassName(id_grind);
-    let grind_item
-    grind = Array.from(grind)
+    let grind_item = null;
+    if (document.getElementsByClassName(id_grind)) {
+        let grind = document.getElementsByClassName(id_grind);
+        grind = Array.from(grind)
 
-    for(let item in grind){
-        if(!(grind[item].classList.contains('hidden'))){
-            grind_item = grind[item].value
+        for (let item in grind) {
+            if (!(grind[item].classList.contains('hidden'))) {
+                grind_item = grind[item].value
+            }
         }
     }
 

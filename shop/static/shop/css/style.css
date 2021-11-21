@@ -346,6 +346,11 @@ header h1 {
     padding: 5px 10px;
     border-radius: 0.25rem 0 0 0.25rem;
 }
+
+.img-card {
+    position: relative;
+    padding-right: 0;
+}
 /*end card*/
 /*subscribe*/
 .subscribe {

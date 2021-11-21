@@ -1,4 +1,4 @@
-{% extends 'coffee/base.html' %}
+{% extends 'shop/base.html' %}
 {% load static %}
 
 {% block title %}Подписка{% endblock %}
@@ -10,8 +10,8 @@
     <div class="container-fluid bg-subscribe">
         <div class="container">
             <div class="row subscribe-title">
-                <h2>Тратьте время на кофе, а не на его покупку</h2>
-                <p>Подписаться на регулярную доставку</p>
+                <h2>Витрачайте час на каву, а не на його покупку</h2>
+                <p>Передплатити регулярну доставку</p>
             </div>
         </div>
     </div>
@@ -20,35 +20,35 @@
            <div class="row breadcrumbs-custom mt-5">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'coffee_catalog' %}">Каталог</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Подписка</li>
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Головна</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'coffee_catalog' slug=category_item.slug %}">{{ category_item.name }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Підписка</li>
                     </ol>
                 </nav>
             </div>
            <div class="row">
-               <h3 class="text-center mt-5">Как это работает?</h3>
+               <h3 class="text-center mt-5">Як це працює?</h3>
            </div>
            <div class="row mt-3">
                <div class="col-md-3 text-center">
-                   <img src="{% static 'coffee/img/coffee-beans.png' %}" alt="coffee-beans" class="subscribe-icon mb-3">
-                   <p class="mb-4">Выбираете ассортимент и объем</p>
+                   <img src="{% static 'shop/img/coffee-beans.png' %}" alt="coffee-beans" class="subscribe-icon mb-3">
+                   <p class="mb-4">Вибираєте асортимент та обсяг</p>
                </div>
                <div class="col-md-3 text-center">
-                   <img src="{% static 'coffee/img/coffee-bag.png' %}" alt="coffee-bag" class="subscribe-icon mb-3">
-                   <p class="mb-4">Количество поставок в месяц</p>
+                   <img src="{% static 'shop/img/coffee-bag.png' %}" alt="coffee-bag" class="subscribe-icon mb-3">
+                   <p class="mb-4">Кількість поставок на місяць</p>
                </div>
                <div class="col-md-3 text-center">
-                   <img src="{% static 'coffee/img/coffee-time.png' %}" alt="coffee-time" class="subscribe-icon mb-3">
-                   <p class="mb-4">Продолжительность подписки</p>
+                   <img src="{% static 'shop/img/coffee-time.png' %}" alt="coffee-time" class="subscribe-icon mb-3">
+                   <p class="mb-4">Тривалість передплати</p>
                </div>
                <div class="col-md-3 text-center">
-                   <img src="{% static 'coffee/img/coffee-request.png' %}" alt="coffee-request" class="subscribe-icon mb-3">
-                   <p class="mb4">Оставляете заявку</p>
+                   <img src="{% static 'shop/img/coffee-request.png' %}" alt="coffee-request" class="subscribe-icon mb-3">
+                   <p class="mb4">Залишаєте заявку</p>
                </div>
            </div>
            <div class="row">
-               <h3 class="text-center mt-5">Сделать заказ</h3>
+               <h3 class="text-center mt-5">Зробити замовлення</h3>
            </div>
            <form action="" method="post">
                <div class="row mt-3 justify-content-around">
@@ -59,12 +59,12 @@
                                <option value="{{ item.title }}">{{ item.name }}</option>
                                {% endfor %}
                            </select>
-                       <label for="roasting">Обжарка:</label>
+                       <label for="roasting">Обсмаження:</label>
                            <select class="form-select mb-3" id="roasting">
                                <option selected>под фильтр</option>
                                <option value="1">под эспрессо</option>
                            </select>
-                       <label for="grind">Помол:</label>
+                       <label for="grind">Помел:</label>
                            <select class="form-select mb-3" id="grind">
                                <option selected>не молоть</option>
                                <option value="1">для эспрессо</option>
@@ -76,22 +76,22 @@
                    </div>
                    <div class="col-md-4">
                        <div class="mb-3">
-                           <p>Вес:</p>
+                           <p>Вага:</p>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="weight" id="weight1" value="250" checked>
-                               <label class="form-check-label" for="weight1">250 г.</label>
+                               <label class="form-check-label" for="weight1">250 г</label>
                             </div>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="weight" id="weight2" value="500">
-                               <label class="form-check-label" for="weight2">500 г.</label>
+                               <label class="form-check-label" for="weight2">500 г</label>
                            </div>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="weight" id="weight3" value="1000">
-                               <label class="form-check-label" for="weight3">1000 г.</label>
+                               <label class="form-check-label" for="weight3">1000 г</label>
                            </div>
                        </div>
                        <div class="mb-3">
-                           <p>Регулярность доставки (в месяц):</p>
+                           <p>Регулярність доставки (на місяць):</p>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="delivery" id="delivery1" value="1"
                                       checked>
@@ -99,26 +99,26 @@
                            </div>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="delivery" id="delivery2" value="2">
-                               <label class="form-check-label" for="delivery2">2 раза</label>
+                               <label class="form-check-label" for="delivery2">2 рази</label>
                            </div>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="delivery" id="delivery3" value="4">
-                               <label class="form-check-label" for="delivery3">4 раза</label>
+                               <label class="form-check-label" for="delivery3">4 рази</label>
                            </div>
                        </div>
                        <div class="mb-3">
-                           <p>Период подписки:</p>
+                           <p>Період підписки:</p>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="period" id="period1" value="1" checked>
-                               <label class="form-check-label" for="period1">1 месяц</label>
+                               <label class="form-check-label" for="period1">1 місяць</label>
                            </div>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="period" id="period2" value="2">
-                               <label class="form-check-label" for="period2">2 месяца</label>
+                               <label class="form-check-label" for="period2">2 місяця</label>
                            </div>
                            <div class="form-check-inline">
                                <input class="form-check-input" type="radio" name="period" id="period3" value="4">
-                               <label class="form-check-label" for="period3">3 месяца</label>
+                               <label class="form-check-label" for="period3">3 місяця</label>
                            </div>
                        </div>
                    </div>
@@ -126,9 +126,9 @@
                <div class="row mt-2 justify-content-around">
                    <div class="col-md-4">
                         <div class="form-group mb-3">
-                            <label for="input-name">Имя:</label>
+                            <label for="input-name">Ім'я:</label>
                             <input type="text" class="form-control" id="input-name" aria-describedby="nameHelp"
-                                   placeholder="Имя">
+                                   placeholder="Ім'я">
     <!--                        <small id="nameHelp" class="form-text text-muted">Введите имя</small>-->
                         </div>
                        <div class="form-group mb-3">
@@ -140,13 +140,13 @@
                    </div>
                    <div class="col-md-4">
                        <div class="form-group mb-3">
-                            <label for="input-address">Адрес:</label>
+                            <label for="input-address">Адреса:</label>
                             <input type="text" class="form-control" id="input-address" aria-describedby="addressHelp"
-                                   placeholder="Адрес">
+                                   placeholder="Адреса">
     <!--                        <small id="addressHelp" class="form-text text-muted">Введите адрес</small>-->
                        </div>
                        <div class="form-group mb-3">
-                            <label for="input-email">Email(необязательно):</label>
+                            <label for="input-email">Email(не обов'язково):</label>
                             <input type="email" class="form-control" id="input-email" aria-describedby="emailHelp"
                                    placeholder="Email">
     <!--                        <small id="emailHelp" class="form-text text-muted">Введите email</small>-->
@@ -155,12 +155,12 @@
                </div>
                <div class="row">
                    <div class="col-md-12 text-center mt-4">
-                       <input type="submit" class="btn btn-primary px-5 py-3" value="Оставить заявку">
+                       <input type="submit" class="btn btn-primary px-5 py-3" value="Залишити заявку">
                    </div>
                </div>
            </form>
            <div class="row">
-               <h3 class="text-center mt-5">Часто задаваемые вопросы</h3>
+               <h3 class="text-center mt-5">Часто задавані питання</h3>
            </div>
            <div class="row mt-3">
                <div class="accordion" id="accordion">

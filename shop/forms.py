@@ -1,5 +1,5 @@
 from django.forms import ModelForm, RadioSelect, HiddenInput, TextInput, Select, NumberInput
-from .models import Order
+from .models import Order, Subscribe, Product
 
 
 class OrderForm(ModelForm):
@@ -24,4 +24,16 @@ class OrderForm(ModelForm):
             'comment': TextInput(attrs={"class": "form-control", "id": "input-comment", "aria-describedby": "nameHelp",
                                       "placeholder": "Комментарий по желанию"}),
             'product': HiddenInput()
+        }
+
+
+class SubscribeForm(ModelForm):
+    class Meta:
+        model = Subscribe
+        fields = ['product', 'roasting', 'grind', 'name', 'phone', 'method_delivery', 'region', 'city', 'address',
+                  'weight', 'regular', 'period']
+
+        widgets = {
+            'product': Select(attrs={"class": "form-control form-select", "id": "input-product",
+                                    "aria-describedby": "nameHelp"})
         }
