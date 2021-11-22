@@ -10,7 +10,7 @@ class OrderForm(ModelForm):
         widgets = {
             'name': TextInput(attrs={"class": "form-control", "id": "input-name", "aria-describedby": "nameHelp",
                                    "placeholder": "ФИО"}),
-            'phone': TextInput(attrs={"class": "form-control", "id": "input-phone", "aria-describedby": "nameHelp",
+            'phone': TextInput(attrs={"class": "form-control", "id": "phone", "aria-describedby": "nameHelp",
                                      "placeholder": "Телефон"}),
             'region': Select(attrs={"class": "form-control form-select", "id": "input-region",
                                     "aria-describedby": "nameHelp"}),
@@ -23,7 +23,7 @@ class OrderForm(ModelForm):
                                       "placeholder": "Домашний адрес для курьерской доставки"}),
             'comment': TextInput(attrs={"class": "form-control", "id": "input-comment", "aria-describedby": "nameHelp",
                                       "placeholder": "Комментарий по желанию"}),
-            'product': HiddenInput()
+            'product': TextInput(attrs={"class": "hidden", "id": "input-product"})
         }
 
 

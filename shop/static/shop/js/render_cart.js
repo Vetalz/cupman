@@ -86,9 +86,10 @@ function del_product(product_id) {
     localStorage.setItem('products', JSON.stringify(new_all_products));
 
     all_products = JSON.parse(localStorage.getItem('products'));
-    let cart_qty = String(all_products.length)
-    let span_cart = document.getElementById('cart')
-    span_cart.innerHTML = cart_qty
+    let cart_qty = String(all_products.length);
+    let span_cart = document.getElementById('cart');
+    span_cart.innerHTML = cart_qty;
+    check_cart();
 }
 
 function check_items(products) {

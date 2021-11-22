@@ -100,7 +100,7 @@ class Order(models.Model):
     method_delivery = models.CharField(choices=DELIVERY_CHOICES, max_length=300, default=DELIVERY_CHOICES[0],
                                        verbose_name='Метод доставки')
     name = models.CharField(max_length=300, verbose_name='ФИО')
-    phone = models.CharField(max_length=13, verbose_name='Номер телефона')
+    phone = models.CharField(max_length=18, verbose_name='Номер телефона')
     region = models.CharField(max_length=100, choices=REGION_CHOICES, blank=True, verbose_name='Область', default=REGION_CHOICES[2])
     city = models.CharField(max_length=100, verbose_name='Город', blank=True)
     new_post_office = models.CharField(max_length=300, verbose_name='Отделение Новой Почты', blank=True)

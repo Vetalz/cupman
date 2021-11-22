@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DetailView
 from .models import Product, Category, Order, Roasting, Grind, SUBSCRIBE_WEIGHT, \
-    SUBSCRIBE_REGULAR, SUBSCRIBE_PERIOD, SUBSCRIBE_DELIVERY_CHOICES, REGION_CHOICES
+    SUBSCRIBE_REGULAR, SUBSCRIBE_PERIOD, SUBSCRIBE_DELIVERY_CHOICES, REGION_CHOICES, PAYMENT_CHOICES, DELIVERY_CHOICES
 from .forms import OrderForm, SubscribeForm
 
 
@@ -40,7 +40,33 @@ class CoffeeCatalog(ListView):
 class OrderView(FormView):
     form_class = OrderForm
     template_name = 'shop/cart.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('cart')
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        name = self.request.POST.get('name')
+        phone = self.request.POST.get('phone')
+        method_delivery = self.request.POST.get('method_delivery')
+        region = self.request.POST.get('region')
+        city = self.request.POST.get('city')
+        new_post_office = self.request.POST.get('new_post_office')
+        address = self.request.POST.get('address')
+        comment = self.request.POST.get('comment')
+        method_payment = self.request.POST.get('method_payment')
+        product = self.request.POST.get('product')
+
+        for i in DELIVERY_CHOICES:
+            if i[0] == method_delivery:
+                method_delivery = i[1]
+        for i in REGION_CHOICES:
+            if i[0] == region:
+                region = i[1]
+        for i in PAYMENT_CHOICES:
+            if i[0] == method_payment:
+                method_payment = i[1]
+        print(name, phone, method_delivery, region, city, new_post_office, address, comment, method_payment, product)
+        messages.success(self.request, 'Замовлення успішно оформлене. Наш менеджер зв\'яжеться з Вами')
+        return super(OrderView, self).form_valid(form)
 
 
 class ProductView(DetailView):
