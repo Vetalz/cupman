@@ -147,21 +147,22 @@ SUBSCRIBE_PERIOD = (
 
 
 class Subscribe(models.Model):
-    product = models.CharField(max_length=200, verbose_name='Продукт')
+    product = models.CharField(max_length=200, verbose_name='Продукт', blank=True)
     roasting = models.CharField(max_length=200, verbose_name='Обжарка', blank=True)
     grind = models.CharField(max_length=200, verbose_name='Помол', blank=True)
     name = models.CharField(max_length=200, verbose_name='Имя')
-    phone = models.CharField(max_length=13, verbose_name='Номер телефона')
-    method_delivery = models.CharField(choices=DELIVERY_CHOICES, max_length=300, default=SUBSCRIBE_DELIVERY_CHOICES[0],
+    phone = models.CharField(max_length=18, verbose_name='Номер телефона')
+    method_delivery = models.CharField(choices=SUBSCRIBE_DELIVERY_CHOICES, max_length=300,
+                                       default=SUBSCRIBE_DELIVERY_CHOICES[0],
                                        verbose_name='Метод доставки')
     region = models.CharField(max_length=100, choices=REGION_CHOICES, blank=True, verbose_name='Область',
                               default=REGION_CHOICES[2])
     city = models.CharField(max_length=100, verbose_name='Город', blank=True)
     address = models.CharField(max_length=300, verbose_name='Адрес')
-    weight = models.CharField(choices=SUBSCRIBE_WEIGHT, max_length=20, default=SUBSCRIBE_WEIGHT[0], verbose_name='Вес')
-    regular = models.CharField(choices=SUBSCRIBE_REGULAR, max_length=20, default=SUBSCRIBE_REGULAR[0],
+    weight = models.CharField(choices=SUBSCRIBE_WEIGHT, max_length=100, default=SUBSCRIBE_WEIGHT[0], verbose_name='Вес')
+    regular = models.CharField(choices=SUBSCRIBE_REGULAR, max_length=100, default=SUBSCRIBE_REGULAR[0],
                                verbose_name='Регулярность доставки')
-    period = models.CharField(choices=SUBSCRIBE_PERIOD, max_length=20, default=SUBSCRIBE_PERIOD[0],
+    period = models.CharField(choices=SUBSCRIBE_PERIOD, max_length=100, default=SUBSCRIBE_PERIOD[0],
                               verbose_name='Период подписки')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена', blank=True, null=True)
     status = models.CharField(max_length=100, choices=ORDER_STATUS, default=ORDER_STATUS[0])

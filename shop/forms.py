@@ -34,6 +34,16 @@ class SubscribeForm(ModelForm):
                   'weight', 'regular', 'period']
 
         widgets = {
-            'product': Select(attrs={"class": "form-control form-select", "id": "input-product",
-                                    "aria-describedby": "nameHelp"})
+            'name': TextInput(attrs={"class": "form-control", "id": "input-name-2", "aria-describedby": "nameHelp",
+                                     "placeholder": "ПІБ"}),
+            'phone': TextInput(attrs={"class": "form-control", "id": "phone", "aria-describedby": "nameHelp"}),
+            'region': Select(attrs={"class": "form-select", "id": "input-region-2",
+                                    "aria-describedby": "nameHelp"}),
+            'city': TextInput(attrs={"class": "form-control", "id": "input-city-2", "aria-describedby": "nameHelp",
+                                     "placeholder": "Місто"}),
+            'address': TextInput(attrs={"class": "form-control", "id": "input-address-2", "aria-describedby": "nameHelp",
+                                        "placeholder": "Домашня адреса або № відділення Нової Пошти"}),
+            'product': TextInput(attrs={"class": "hidden", "id": "input-product"}),
+            'roasting': TextInput(attrs={"class": "hidden", "id": "input-roasting"}),
+            'grind': TextInput(attrs={"class": "hidden", "id": "input-grind"}),
         }

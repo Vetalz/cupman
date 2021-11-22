@@ -50,7 +50,7 @@
            <div class="row">
                <h3 class="text-center mt-5">Зробити замовлення</h3>
            </div>
-           <form action="" method="post">
+           <form action="" method="post" id="subscribe-form">
                <div class="row mt-3 justify-content-around">
                    <div class="col-md-4">
                        <label for="kind">Сорт:</label>
@@ -66,9 +66,9 @@
                                         <option value="{{ r.id }}">{{ r.name }}</option>
                                    {% endfor %}
                                </select>
-                           <label for="grind">Помел:</label>
+                           <p class="mb-0">Помел:</p>
                                {% for r in roasting %}
-                                   <select class="grind form-select mb-3 hidden" id="grind" name="{{ r.id }}">
+                                   <select class="grind form-select mb-3 hidden" name="{{ r.id }}">
                                        {% for g in r.grind.all %}
                                             <option value="{{ g.name }}">
                                                 {{ g.name }}
@@ -81,86 +81,98 @@
                    <div class="col-md-4">
                        <div class="mb-3">
                            <p>Вага:</p>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="weight" id="weight1" value="250" checked>
-                               <label class="form-check-label" for="weight1">250 г</label>
-                            </div>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="weight" id="weight2" value="500">
-                               <label class="form-check-label" for="weight2">500 г</label>
-                           </div>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="weight" id="weight3" value="1000">
-                               <label class="form-check-label" for="weight3">1000 г</label>
-                           </div>
+                           {% for pk, choice in form.weight.field.widget.choices %}
+                               <div class="form-check-inline">
+                                   <input class="form-check-input" type="radio" name="{{ form.weight.name }}"
+                                          id="{{ form.weight.name }}_{{ pk }}" value="{{ pk }}"
+                                            {% if pk == "1" %}
+                                                checked="checked"
+                                            {% endif %} />
+                                   <label class="form-check-label" for="{{ form.weight.name }}_{{ pk }}">{{ choice }}</label>
+                                </div>
+                           {% endfor %}
                        </div>
                        <div class="mb-3">
                            <p>Регулярність доставки (на місяць):</p>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="delivery" id="delivery1" value="1"
-                                      checked>
-                               <label class="form-check-label" for="delivery1">1 раз</label>
-                           </div>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="delivery" id="delivery2" value="2">
-                               <label class="form-check-label" for="delivery2">2 рази</label>
-                           </div>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="delivery" id="delivery3" value="4">
-                               <label class="form-check-label" for="delivery3">4 рази</label>
-                           </div>
+                           {% for pk, choice in form.regular.field.widget.choices %}
+                               <div class="form-check-inline">
+                                   <input class="form-check-input" type="radio" name="{{ form.regular.name }}"
+                                          id="{{ form.regular.name }}_{{ pk }}" value="{{ pk }}"
+                                            {% if pk == "1" %}
+                                                checked="checked"
+                                            {% endif %} />
+                                   <label class="form-check-label" for="{{ form.regular.name }}_{{ pk }}">{{ choice }}</label>
+                                </div>
+                           {% endfor %}
                        </div>
                        <div class="mb-3">
                            <p>Період підписки:</p>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="period" id="period1" value="1" checked>
-                               <label class="form-check-label" for="period1">1 місяць</label>
-                           </div>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="period" id="period2" value="2">
-                               <label class="form-check-label" for="period2">2 місяця</label>
-                           </div>
-                           <div class="form-check-inline">
-                               <input class="form-check-input" type="radio" name="period" id="period3" value="4">
-                               <label class="form-check-label" for="period3">3 місяця</label>
-                           </div>
+                           {% for pk, choice in form.period.field.widget.choices %}
+                               <div class="form-check-inline">
+                                   <input class="form-check-input" type="radio" name="{{ form.period.name }}"
+                                          id="{{ form.period.name }}_{{ pk }}" value="{{ pk }}"
+                                            {% if pk == "1" %}
+                                                checked="checked"
+                                            {% endif %} />
+                                   <label class="form-check-label" for="{{ form.period.name }}_{{ pk }}">{{ choice }}</label>
+                                </div>
+                           {% endfor %}
                        </div>
                    </div>
                </div>
-               <div class="row mt-2 justify-content-around">
+               <div class="row mt-5 justify-content-around">
                    <div class="col-md-4">
                         <div class="form-group mb-3">
-                            <label for="input-name">Ім'я:</label>
-                            <input type="text" class="form-control" id="input-name" aria-describedby="nameHelp"
-                                   placeholder="Ім'я">
+                            {{ form.name }}
     <!--                        <small id="nameHelp" class="form-text text-muted">Введите имя</small>-->
                         </div>
-                       <div class="form-group mb-3">
-                            <label for="input-phone">Телефон:</label>
-                            <input type="text" class="form-control" id="input-phone" aria-describedby="phoneHelp"
-                                   placeholder="Телефон">
+                       <div class="form-group mb-4">
+                            {{ form.phone }}
     <!--                        <small id="phoneHelp" class="form-text text-muted">Введите телефон</small>-->
                         </div>
+                       <div class="form-group mb-3">
+                           {% for pk, choice in form.method_delivery.field.widget.choices %}
+                               <div class="form-check-inline">
+                                   <input class="form-check-input" type="radio" name="{{ form.method_delivery.name }}"
+                                          id="{{ form.method_delivery.name }}_{{ pk }}" value="{{ pk }}"
+                                            {% if pk == "1" %}
+                                                checked="checked"
+                                            {% endif %} />
+                                   <label class="form-check-label" for="{{ form.method_delivery.name }}_{{ pk }}">{{ choice }}</label>
+                               </div>
+                           {% endfor %}
+                       </div>
                    </div>
                    <div class="col-md-4">
                        <div class="form-group mb-3">
-                            <label for="input-address">Адреса:</label>
-                            <input type="text" class="form-control" id="input-address" aria-describedby="addressHelp"
-                                   placeholder="Адреса">
+                           {{ form.region }}
     <!--                        <small id="addressHelp" class="form-text text-muted">Введите адрес</small>-->
                        </div>
                        <div class="form-group mb-3">
-                            <label for="input-email">Email(не обов'язково):</label>
-                            <input type="email" class="form-control" id="input-email" aria-describedby="emailHelp"
-                                   placeholder="Email">
-    <!--                        <small id="emailHelp" class="form-text text-muted">Введите email</small>-->
-                        </div>
+                            {{ form.city }}
+    <!--                        <small id="emailHelp" class="form-text text-muted">Введите город</small>-->
+                       </div>
+                       <div class="form-group mb-3">
+                            {{ form.address }}
+    <!--                        <small id="emailHelp" class="form-text text-muted">Введите адрес</small>-->
+                       </div>
+                       {{ form.product }}
+                       {{ form.roasting }}
+                       {{ form.grind }}
+                       {% csrf_token %}
                    </div>
                </div>
                <div class="row">
                    <div class="col-md-12 text-center mt-4">
                        <input type="submit" class="btn btn-primary px-5 py-3" value="Залишити заявку">
                    </div>
+                   {% if messages %}
+                        <h4 class="messages text-success text-center" id="msg">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                        </h4>
+                    {% endif %}
                </div>
            </form>
            <div class="row">
